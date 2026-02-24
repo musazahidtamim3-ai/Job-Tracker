@@ -27,19 +27,19 @@
 
 <body class="bg-base-200">
     <section id="header" class=" container w-[80%] mx-auto">
-        <h2 class="text-[#002C5C] font-bold text-3xl pt-10 text-center md:text-left lg:text-left">Job Application Tracker</h2>
+        <h2 class="text-[#002C5C] font-bold text-xl md:text-3xl lg:text-3xl pt-10 text-center md:text-left lg:text-left">Job Application Tracker</h2>
         <div class="container grid grid-cols-3 gap-4 pt-5">
             <div class="total bg-base-100 pl-4 pr-5 py-3 border border-gray-100 rounded-xl">
-                <p class="text-[#323B49]">Total</p>
-                <h2 id="total" class="font-bold text-2xl">0</h2>
+                <p class="text-[#323B49] text-center md:text-left lg:text-left">Total</p>
+                <h2 id="total" class="font-bold text-2xl text-center md:text-left lg:text-left">0</h2>
             </div>
             <div class="total bg-base-100 pl-4 pr-5 py-3 border border-gray-100 rounded-xl">
-                <p class="text-[#323B49]">Interview</p>
-                <h2 id="int-count" class="text-green-600 font-bold text-2xl">0</h2>
+                <p class="text-[#323B49] text-center md:text-left lg:text-left">Interview</p>
+                <h2 id="int-count" class="text-green-600 font-bold text-2xl text-center md:text-left lg:text-left">0</h2>
             </div>
             <div class="total bg-base-100 pl-4 pr-5 py-3 border border-gray-100 rounded-xl">
-                <p class="text-[#323B49]">Rejected</p>
-                <h2 id="rej-count" class="text-red-600 font-bold text-2xl">0</h2>
+                <p class="text-[#323B49] text-center md:text-left lg:text-left">Rejected</p>
+                <h2 id="rej-count" class="text-red-600 font-bold text-2xl text-center md:text-left lg:text-left">0</h2>
             </div>
         </div>
         <br>
@@ -48,7 +48,7 @@
     <main>
         <div class="flex justify-between items-center pt-5 container w-[80%] mx-auto">
             <h2 class="font-semibold text-[20px] text-[#002C5C] pb-3 ">Available Jobs</h2>
-            <p id="available-count" class="text-[#323b49bb]">8 jobs</p>
+            <p id="available-count" class="text-[#323b49bb] pb-3">8 jobs</p>
         </div>
         <div class="flex gap-3 container w-[90%] lg:w-[80%] mx-auto">
             <button onclick="btnToggle('add-jobs')" id="add-jobs"

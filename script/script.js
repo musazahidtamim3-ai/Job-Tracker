@@ -70,6 +70,17 @@ mainContainer.addEventListener("click", function (event) {
         const status = parentNode.querySelector(".sta").innerText;
         const description = parentNode.querySelector(".describe").innerText;
 
+
+        const allCards = Array.from(cardContainer.children);
+        const mainCard = allCards.find(card => card.querySelector(".job-name").innerText === jobName);
+
+        if (mainCard) {
+            const mainStatus = mainCard.querySelector('.sta');
+            mainStatus.innerText = "Interview";
+            mainStatus.classList.remove("btn-soft", "btn-primary", "btn-error");
+            mainStatus.classList.add("btn-outline", "btn-success");
+        }
+
         const cardInfo = {
             jobName,
             jobPost,
@@ -80,7 +91,7 @@ mainContainer.addEventListener("click", function (event) {
         }
 
         const jobExist = interviewList.find(item => item.jobName == cardInfo.jobName);
-        parentNode.querySelector('.sta').innerText = "Interview"
+        parentNode.querySelector(".sta").innerText = "Interview"
         parentNode.querySelector('.sta').classList.remove("btn", "btn-soft", "btn-primary");
         parentNode.querySelector('.sta').classList.add("btn", "btn-outline", "btn-success");
         if (!jobExist) {
@@ -106,6 +117,16 @@ mainContainer.addEventListener("click", function (event) {
         const status = parentNode.querySelector(".sta").innerText;
         const description = parentNode.querySelector(".describe").innerText;
 
+        const allCards = Array.from(cardContainer.children);
+        const mainCard = allCards.find(card => card.querySelector(".job-name").innerText === jobName);
+
+        if (mainCard) {
+            const mainStatus = mainCard.querySelector('.sta');
+            mainStatus.innerText = "Rejected";
+            mainStatus.classList.remove("btn-soft", "btn-primary", "btn-success");
+            mainStatus.classList.add("btn-outline", "btn-error");
+        }
+
         const cardInfo = {
             jobName,
             jobPost,
@@ -116,7 +137,7 @@ mainContainer.addEventListener("click", function (event) {
         }
 
         const jobExist = rejectedList.find(item => item.jobName == cardInfo.jobName);
-        parentNode.querySelector('.sta').innerText = "Rejected"
+        parentNode.querySelector(".sta").innerText = "Rejected"
         parentNode.querySelector('.sta').classList.remove("btn", "btn-soft", "btn-primary");
         parentNode.querySelector('.sta').classList.add("btn", "btn-outline", "btn-error");
         if (!jobExist) {
