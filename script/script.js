@@ -38,7 +38,7 @@ function btnToggle(id) {
     const selected = document.getElementById(id);
     currentStatus = id;
     selected.classList.remove("btn")
-    selected.classList.add("btn", "bg-blue-400",  "text-white", "hover:bg-blue-500")
+    selected.classList.add("btn", "bg-blue-400", "text-white", "hover:bg-blue-500")
 
     if (id == "inter-filter") {
         cardContainer.classList.add("hidden");
@@ -51,11 +51,11 @@ function btnToggle(id) {
         cardContainer.classList.remove("hidden");
         filteredSection.classList.add("hidden");
     }
-    else if(id == "rej-filter"){
+    else if (id == "rej-filter") {
         cardContainer.classList.add("hidden");
         filteredSection.classList.remove("hidden");
         renderRejected();
-        
+
     }
 }
 
@@ -75,7 +75,7 @@ mainContainer.addEventListener("click", function (event) {
             jobPost,
             deleteBtn,
             jobType,
-            status : "Interview",
+            status: "Interview",
             description
         }
 
@@ -87,14 +87,14 @@ mainContainer.addEventListener("click", function (event) {
             interviewList.push(cardInfo);
         }
         rejectedList = rejectedList.filter(item => item.jobName != cardInfo.jobName)
-        if(currentStatus == "inter-filter"){
+        if (currentStatus == "inter-filter") {
             renderInterview();
         }
-        else if(currentStatus == "rej-filter"){
+        else if (currentStatus == "rej-filter") {
             renderRejected();
         }
         calculateCount()
-        
+
     }
     else if (event.target.classList.contains("reject-btn")) {
         const parentNode = event.target.parentNode.parentNode;
@@ -111,7 +111,7 @@ mainContainer.addEventListener("click", function (event) {
             jobPost,
             deleteBtn,
             jobType,
-            status : "Rejected",
+            status: "Rejected",
             description
         }
 
@@ -123,10 +123,10 @@ mainContainer.addEventListener("click", function (event) {
             rejectedList.push(cardInfo);
         }
         interviewList = interviewList.filter(item => item.jobName != cardInfo.jobName);
-        if(currentStatus == "inter-filter"){
+        if (currentStatus == "inter-filter") {
             renderInterview();
         }
-        else if(currentStatus == "rej-filter"){
+        else if (currentStatus == "rej-filter") {
             renderRejected();
         }
 
@@ -144,7 +144,7 @@ mainContainer.addEventListener("click", function (event) {
         if (cardToDelete) {
             cardToDelete.remove();
         }
-        
+
         parentNode.remove();
 
         interviewList = interviewList.filter(item => item.jobName != jobName);
@@ -154,7 +154,7 @@ mainContainer.addEventListener("click", function (event) {
 
         if (currentStatus === "inter-filter") {
             renderInterview();
-        } 
+        }
         else if (currentStatus === "rej-filter") {
             renderRejected();
         }
@@ -164,8 +164,17 @@ mainContainer.addEventListener("click", function (event) {
 })
 
 function renderInterview() {
-    filteredSection.innerHTML = '';
-
+    filteredSection.innerHTML = ""
+    if (interviewList.length == 0) {
+        filteredSection.innerHTML = `
+        <div id="no-jobs" class="flex flex-col gap-3 text-center items-center bg-base-100 p-20 rounded-md">
+                <img src="./images/jobs.png" alt="">
+                <h3 class="font-semibold text-[25px] text-[#002C5C]">No jobs Available</h3>
+                <p>Check back soon for new job opportunities</p>
+            </div>
+        `
+        return;
+    }
     for (let interview of interviewList) {
         const statusClass = "btn-outline btn-success";
         let div = document.createElement("div");
@@ -193,8 +202,17 @@ function renderInterview() {
 }
 
 function renderRejected() {
-    filteredSection.innerHTML = '';
-
+    filteredSection.innerHTML = ''
+    if (rejectedList.length == 0) {
+        filteredSection.innerHTML = `
+        <div id="no-jobs" class="flex flex-col gap-3 text-center items-center bg-base-100 p-20 rounded-md">
+                <img src="./images/jobs.png" alt="">
+                <h3 class="font-semibold text-[25px] text-[#002C5C]">No jobs Available</h3>
+                <p>Check back soon for new job opportunities</p>
+            </div>
+        `
+        return;
+    }
     for (let reject of rejectedList) {
         const statusClass = "btn btn-outline btn-error"
         let div = document.createElement("div");
