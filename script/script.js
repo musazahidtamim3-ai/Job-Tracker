@@ -80,7 +80,7 @@ mainContainer.addEventListener("click", function (event) {
         }
 
         const jobExist = interviewList.find(item => item.jobName == cardInfo.jobName);
-        parentNode.querySelector('.sta').innerText = "interview"
+        parentNode.querySelector('.sta').innerText = "Interview"
         parentNode.querySelector('.sta').classList.remove("btn", "btn-soft", "btn-primary");
         parentNode.querySelector('.sta').classList.add("btn", "btn-outline", "btn-success");
         if (!jobExist) {
