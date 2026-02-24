@@ -5,6 +5,7 @@ let currentStatus = "add-jobs"
 let total = document.getElementById("total");
 let intCount = document.getElementById("int-count");
 let rejCount = document.getElementById("rej-count");
+let availableCount = document.getElementById("available-count");
 
 let cardContainer = document.getElementById("card-container");
 let filteredSection = document.getElementById("filtered-section");
@@ -14,6 +15,9 @@ function calculateCount() {
     total.innerText = cardContainer.children.length;
     intCount.innerText = interviewList.length;
     rejCount.innerText = rejectedList.length;
+    if (availableCount) {
+        availableCount.innerText = `${cardContainer.children.length} jobs`;
+    }
 }
 
 calculateCount();
@@ -130,6 +134,32 @@ mainContainer.addEventListener("click", function (event) {
 
     }
 
+    else if (event.target.closest(".delete-btn")) {
+        const parentNode = event.target.closest(".bg-base-100");
+
+        const jobName = parentNode.querySelector(".job-name").innerText;
+
+        const allCards = Array.from(cardContainer.children);
+        const cardToDelete = allCards.find(card => card.querySelector(".job-name").innerText === jobName);
+        if (cardToDelete) {
+            cardToDelete.remove();
+        }
+        
+        parentNode.remove();
+
+        interviewList = interviewList.filter(item => item.jobName != jobName);
+        rejectedList = rejectedList.filter(item => item.jobName != jobName);
+
+        calculateCount()
+
+        if (currentStatus === "inter-filter") {
+            renderInterview();
+        } 
+        else if (currentStatus === "rej-filter") {
+            renderRejected();
+        }
+
+    }
 
 })
 
