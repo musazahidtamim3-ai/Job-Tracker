@@ -1,5 +1,6 @@
 let interviewList = [];
 let rejectedList = [];
+let currentStatus = "add-jobs"
 
 let total = document.getElementById("total");
 let intCount = document.getElementById("int-count");
@@ -17,9 +18,9 @@ function calculateCount() {
 
 calculateCount();
 
-let addJobs = document.getElementById("add-jobs");
-let intFilter = document.getElementById("inter-filter");
-let rejFilter = document.getElementById("rej-filter");
+const addJobs = document.getElementById("add-jobs");
+const intFilter = document.getElementById("inter-filter");
+const rejFilter = document.getElementById("rej-filter");
 
 function btnToggle(id) {
     addJobs.classList.add("btn")
@@ -31,11 +32,14 @@ function btnToggle(id) {
     rejFilter.classList.remove("bg-blue-400", "text-white", "hover:bg-blue-500");
 
     const selected = document.getElementById(id);
-    selected.classList.add("bg-blue-400", "text-white", "hover:bg-blue-500")
+    currentStatus = id;
+    selected.classList.remove("btn")
+    selected.classList.add("btn", "bg-blue-400",  "text-white", "hover:bg-blue-500")
 
     if (id == "inter-filter") {
         cardContainer.classList.add("hidden");
         filteredSection.classList.remove("hidden")
+        renderInterview();
 
     }
 
@@ -47,6 +51,7 @@ function btnToggle(id) {
         cardContainer.classList.add("hidden");
         filteredSection.classList.remove("hidden");
         renderRejected();
+        
     }
 }
 
@@ -66,7 +71,7 @@ mainContainer.addEventListener("click", function (event) {
             jobPost,
             deleteBtn,
             jobType,
-            status,
+            status : "Interview",
             description
         }
 
@@ -77,8 +82,15 @@ mainContainer.addEventListener("click", function (event) {
         if (!jobExist) {
             interviewList.push(cardInfo);
         }
-        renderInterview();
+        rejectedList = rejectedList.filter(item => item.jobName != cardInfo.jobName)
+        if(currentStatus == "inter-filter"){
+            renderInterview();
+        }
+        else if(currentStatus == "rej-filter"){
+            renderRejected();
+        }
         calculateCount()
+        
     }
     else if (event.target.classList.contains("reject-btn")) {
         const parentNode = event.target.parentNode.parentNode;
@@ -95,7 +107,7 @@ mainContainer.addEventListener("click", function (event) {
             jobPost,
             deleteBtn,
             jobType,
-            status,
+            status : "Rejected",
             description
         }
 
@@ -106,8 +118,16 @@ mainContainer.addEventListener("click", function (event) {
         if (!jobExist) {
             rejectedList.push(cardInfo);
         }
-        renderRejected()
+        interviewList = interviewList.filter(item => item.jobName != cardInfo.jobName);
+        if(currentStatus == "inter-filter"){
+            renderInterview();
+        }
+        else if(currentStatus == "rej-filter"){
+            renderRejected();
+        }
+
         calculateCount()
+
     }
 
 
@@ -117,7 +137,7 @@ function renderInterview() {
     filteredSection.innerHTML = '';
 
     for (let interview of interviewList) {
-        console.log(interview)
+        const statusClass = "btn-outline btn-success";
         let div = document.createElement("div");
         div.className = "bg-base-100 p-7 rounded-md mt-5 ";
         div.innerHTML = `
@@ -131,7 +151,7 @@ function renderInterview() {
                     </button>
                 </div>
                 <p class="job-type text-[#323b49bb] pt-5 pb-5">${interview.jobType}</p>
-                <button id="not-app" class="btn btn-soft btn-primary sta">${interview.status}</button>
+                <button id="not-app" class="btn ${statusClass} sta">${interview.status}</button>
                 <p class="describe text-[#323B49] pt-3 pb-5">${interview.description}</p>
                 <div class="flex gap-3">
                     <button class="btn btn-outline btn-success int-btn">Interview</button>
@@ -146,7 +166,7 @@ function renderRejected() {
     filteredSection.innerHTML = '';
 
     for (let reject of rejectedList) {
-        console.log(reject)
+        const statusClass = "btn btn-outline btn-error"
         let div = document.createElement("div");
         div.className = "bg-base-100 p-7 rounded-md mt-5 ";
         div.innerHTML = `
@@ -160,7 +180,7 @@ function renderRejected() {
                     </button>
                 </div>
                 <p class="job-type text-[#323b49bb] pt-5 pb-5">${reject.jobType}</p>
-                <button id="not-app" class="btn btn-soft btn-primary sta">${reject.status}</button>
+                <button id="not-app" class="btn ${statusClass} sta">${reject.status}</button>
                 <p class="describe text-[#323B49] pt-3 pb-5">${reject.description}</p>
                 <div class="flex gap-3">
                     <button class="btn btn-outline btn-success int-btn">Interview</button>
