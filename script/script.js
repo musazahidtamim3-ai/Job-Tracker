@@ -43,6 +43,11 @@ function btnToggle(id) {
         cardContainer.classList.remove("hidden");
         filteredSection.classList.add("hidden");
     }
+    else if(id == "rej-filter"){
+        cardContainer.classList.add("hidden");
+        filteredSection.classList.remove("hidden");
+        renderRejected();
+    }
 }
 
 mainContainer.addEventListener("click", function (event) {
@@ -75,7 +80,7 @@ mainContainer.addEventListener("click", function (event) {
         renderInterview();
         calculateCount()
     }
-    else if (event.target.classList.contains("rej-btn")) {
+    else if (event.target.classList.contains("reject-btn")) {
         const parentNode = event.target.parentNode.parentNode;
 
         const jobName = parentNode.querySelector(".job-name").innerText;
@@ -101,7 +106,7 @@ mainContainer.addEventListener("click", function (event) {
         if (!jobExist) {
             rejectedList.push(cardInfo);
         }
-        renderRejected();
+        renderRejected()
         calculateCount()
     }
 
@@ -147,7 +152,7 @@ function renderRejected() {
         div.innerHTML = `
         <div class="flex justify-between items-center">
                     <div>
-                        <h1 class="job-name font-semibold text-[25px] text-[#002C5C] pb-1">${interview.jobName}</h1>
+                        <h1 class="job-name font-semibold text-[25px] text-[#002C5C] pb-1">${reject.jobName}</h1>
                         <p class="post text-[#323b49bb] ">${reject.jobPost}</p>
                     </div>
                     <button class="btn rounded-full delete-btn">
